@@ -1,0 +1,10 @@
+
+.top-bar {
+    height: 10rem;
+}
+
+.nav-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
