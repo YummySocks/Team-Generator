@@ -1,11 +1,11 @@
 const fs = require('fs')
-const Manager = require('./lib/Manager')
-const Intern = require('./lib/Intern')
-const Engineer = require('./lib/Engineer')
+const Manager = require('../lib/Manager')
+const Intern = require('../lib/Intern')
+const Engineer = require('../lib/Engineer')
 const inquirer = require('inquirer')
 
 const finalObj = {
-    managers: '',
+    managers: [],
     engineers: [],
     interns: []
 }
@@ -107,18 +107,16 @@ function internAsk(){
         .then((answers)=> questionInternHandle(answers))
 }
 function questionManHandle(answers){
-    console.log(answers)
     let name = answers.manager
     let id = answers.manageId
     let email = answers.manageEm
     let officeNumber = answers.manageNumb
     const manageObj = new Manager(name,id,email,officeNumber)
-    console.log(manageObj.getRole())
-    finalObj.managers= manageObj
+    
+    finalObj.managers.push(manageObj)
     filterQ(answers.choicesT)
 }
 function questionEngineHandle(answers){
-    console.log(answers)
     let name = answers.engineer
     let id = answers.engineId
     let email = answers.engineEm
@@ -128,7 +126,6 @@ function questionEngineHandle(answers){
     filterQ(answers.choicesT)
 }
 function questionInternHandle(answers){
-    console.log(answers)
     let name = answers.intern
     let id = answers.internId
     let email = answers.internEm
@@ -145,12 +142,80 @@ function filterQ (choicesT){
         case 'Intern':
             return internAsk()
         default: 
-            return console.log(finalObj)
+            return renderPage(finalObj)
     }
 }
 
-function testing(){
-    `<!DOCTYPE html>
+function writingItOut (finalObj){
+    let finalText;
+    for(let i=0;i<finalObj.managers.length; i++){
+       manageCard(finalObj.managers[i])
+    }
+    for(let i=0;i<finalObj.engineers.length; i++){
+        engineCard(finalObj.engineers[i])
+    }
+    for(let i=0;i<finalObj.interns.length; i++){
+        internCard(finalObj.interns[i])
+    }
+    function manageCard (data){
+        var manText = `<div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">${data.getRole()}</span>
+              <p>Name: ${data.getName()}</p>
+              <p>ID ${data.getId()}</p>
+              <p>Email: ${data.getEmail()}</p>
+              <p>Number: ${data.getNumber()}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      `
+      finalText = manText
+    }
+    function engineCard (data){
+         var engText = `<div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">${data.getRole()}</span>
+              <p>Name: ${data.getName()}</p>
+              <p>ID ${data.getId()}</p>
+              <p>Email: ${data.getEmail()}</p>
+              <p>GitHub: ${data.getGithub()}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      `
+    finalText += engText
+    }
+    function internCard (data){
+        var intText = `<div class="row">
+        <div class="col s12 m6">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">${data.getRole()}</span>
+              <p>Name: ${data.getName()}</p>
+              <p>ID ${data.getId()}</p>
+              <p>Email: ${data.getEmail()}</p>
+              <p>School: ${data.getSchool()}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      `
+      finalText += intText
+    }
+    return finalText
+}
+function renderPage(finalObj){
+    fs.writeFile ('index.html', writePage(finalObj), (err) => 
+    err ? console.log(err) : console.log('....Wrote the Html'))
+}
+function writePage(finalObj){
+    return`<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -167,9 +232,9 @@ function testing(){
             <a href="#" class="brand-logo">My team</>
         </div>
     </nav>
-    <ul>
-       
-    </ul>
+    <section class="finalCards">
+       ${writingItOut(finalObj)}
+    </section>
 
 
 
