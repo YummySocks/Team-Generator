@@ -165,8 +165,10 @@ function writingItOut (finalObj){
               <span class="card-title">${data.getRole()}</span>
               <p>Name: ${data.getName()}</p>
               <p>ID ${data.getId()}</p>
-              <p>Email: ${data.getEmail()}</p>
               <p>Number: ${data.getNumber()}</p>
+            </div>
+            <div class="card-action">
+                <a href="mailto:${data.getEmail()}">Email Me</a>
             </div>
           </div>
         </div>
@@ -182,8 +184,10 @@ function writingItOut (finalObj){
               <span class="card-title">${data.getRole()}</span>
               <p>Name: ${data.getName()}</p>
               <p>ID ${data.getId()}</p>
-              <p>Email: ${data.getEmail()}</p>
-              <p>GitHub: ${data.getGithub()}</p>
+            </div>
+            <div class="card-action">
+                <a target="_blank" href="https://github.com/${data.getGithub()}">${data.getGithub()}</a>
+                <a href="mailto:${data.getEmail()}">Email Me</a>
             </div>
           </div>
         </div>
@@ -199,8 +203,10 @@ function writingItOut (finalObj){
               <span class="card-title">${data.getRole()}</span>
               <p>Name: ${data.getName()}</p>
               <p>ID ${data.getId()}</p>
-              <p>Email: ${data.getEmail()}</p>
               <p>School: ${data.getSchool()}</p>
+            </div>
+            <div class="card-action">
+                <a href="mailto:${data.getEmail()}">Email Me</a>
             </div>
           </div>
         </div>
