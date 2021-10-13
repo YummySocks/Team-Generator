@@ -19,8 +19,8 @@ describe("Engineer",() =>{
             expect(idTest).toEqual(engTest.getId())
         })
     })
-    describe("name",()=> {
-        it("should return the name given", () =>{
+    describe("email",()=> {
+        it("should return the email given", () =>{
             const engTest = new Engineer("patrick","3","what@gmail.com","Yummily")
 
             const emailTest = "what@gmail.com"
