@@ -1,15 +1,16 @@
+// importing all the node modules and classes that are needed
 const fs = require('fs')
 const Manager = require('../lib/Manager')
 const Intern = require('../lib/Intern')
 const Engineer = require('../lib/Engineer')
 const inquirer = require('inquirer')
-
+// creates the empty object to store final data into
 const finalObj = {
     managers: [],
     engineers: [],
     interns: []
 }
-
+// set of functions for asking each question for whichever object or role is asked
 function startAsk (){
 inquirer
     .prompt([
@@ -24,6 +25,7 @@ inquirer
             name: 'manageId',
             validate: function(number)
                 {
+                    // regex to check if valid positive number
                     return /^[0-9][A-Za-z0-9 -]*$/.test(number)
                 }
         },
@@ -33,7 +35,7 @@ inquirer
             name: 'manageEm',
             validate: function(email)
         {
-            // Regex mail check (return true if valid mail)
+            // Regex check to see if a normal email
             return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
         }
         },
@@ -102,7 +104,7 @@ function internAsk(){
             },
             {
                 type: 'input',
-                message: "What is the engineer's id?",
+                message: "What is the intern's id?",
                 name: 'internId',
                 validate: function(number)
                 {
@@ -133,13 +135,13 @@ function internAsk(){
         ])
         .then((answers)=> questionInternHandle(answers))
 }
+// handles the storing of the data at the end of the questions and passes the choice of next role onto the next function
 function questionManHandle(answers){
     let name = answers.manager
     let id = answers.manageId
     let email = answers.manageEm
     let officeNumber = answers.manageNumb
     const manageObj = new Manager(name,id,email,officeNumber)
-    
     finalObj.managers.push(manageObj)
     filterQ(answers.choicesT)
 }
@@ -161,7 +163,7 @@ function questionInternHandle(answers){
     finalObj.interns.push(internObj)
     filterQ(answers.choicesT)
 }
-
+// check which choice was selected and runs the appropriate function based on selection or runs the render page if no more team members are needed
 function filterQ (choicesT){
     switch (choicesT){
         case 'Engineer':
@@ -172,7 +174,7 @@ function filterQ (choicesT){
             return renderPage(finalObj)
     }
 }
-
+// loops through the array of objects to create cards for each of them in the order of manager, engineer, and intern
 function writingItOut (finalObj){
     let finalText;
     for(let i=0;i<finalObj.managers.length; i++){
@@ -243,10 +245,12 @@ function writingItOut (finalObj){
     }
     return finalText
 }
+// write file using the text from the write page function which makes the index.html 
 function renderPage(finalObj){
     fs.writeFile ('index.html', writePage(finalObj), (err) => 
     err ? console.log(err) : console.log('....Wrote the Html'))
 }
+// backtick notation for the html file so there can be a place where the cards get rendered inside
 function writePage(finalObj){
     return`<!DOCTYPE html>
 <html lang="en">
@@ -276,5 +280,5 @@ function writePage(finalObj){
 </html>`
 }
 
-
+// starts off with the manager question on startup
 startAsk();
