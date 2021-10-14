@@ -26,7 +26,12 @@ inquirer
         {
             type: 'input',
             message:"What is the team manager's email?",
-            name: 'manageEm'
+            name: 'manageEm',
+            validate: function(email)
+        {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
         },
         {
             type: 'input',
@@ -58,7 +63,12 @@ function engineerAsk(){
             {
                 type: 'input',
                 message:"What is the engineer's email?",
-                name: 'engineEm'
+                name: 'engineEm',
+                validate: function(email)
+        {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
             },
             {
                 type: 'input',
@@ -90,7 +100,12 @@ function internAsk(){
             {
                 type: 'input',
                 message:"What is the intern's email?",
-                name: 'internEm'
+                name: 'internEm',
+                validate: function(email)
+        {
+            // Regex mail check (return true if valid mail)
+            return /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()\.,;\s@\"]+\.{0,1})+([^<>()\.,;:\s@\"]{2,}|[\d\.]+))$/.test(email);
+        }
             },
             {
                 type: 'input',
