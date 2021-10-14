@@ -21,7 +21,11 @@ inquirer
         {
             type: 'input',
             message: "What is the team manager's id?",
-            name: 'manageId'
+            name: 'manageId',
+            validate: function(number)
+                {
+                    return /^[0-9][A-Za-z0-9 -]*$/.test(number)
+                }
         },
         {
             type: 'input',
@@ -58,7 +62,11 @@ function engineerAsk(){
             {
                 type: 'input',
                 message: "What is the engineer's id?",
-                name: 'engineId'
+                name: 'engineId',
+                validate: function(number)
+                {
+                    return /^[0-9][A-Za-z0-9 -]*$/.test(number)
+                }
             },
             {
                 type: 'input',
@@ -95,7 +103,11 @@ function internAsk(){
             {
                 type: 'input',
                 message: "What is the engineer's id?",
-                name: 'internId'
+                name: 'internId',
+                validate: function(number)
+                {
+                    return /^[0-9][A-Za-z0-9 -]*$/.test(number)
+                }
             },
             {
                 type: 'input',
@@ -265,4 +277,4 @@ function writePage(finalObj){
 }
 
 
-startAsk()
+startAsk();
